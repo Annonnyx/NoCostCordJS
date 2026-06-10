@@ -27,11 +27,11 @@ dotenv.load_dotenv(Path(__file__).parent / 'cfg/.env', verbose=True)
 
 bot = commands.Bot(command_prefix='your_prefix', description=description, intents=intents)
 
-# to add a cog, use bot.load_extension(cogs.your_cog_name) in the main() function below.
+# to add a cog, use bot.load_extension('cogs.your_cog_name') in the main() function below.
 async def main():
     async with bot:
         # Load your cogs here
-        bot.load_extension(cogs.example)  # Example cog
+        await bot.load_extension('cogs.example')  # Example cog
 
         # bot startup, must be the last line of main()
         await bot.start(os.getenv('DISCORD_TOKEN'))
