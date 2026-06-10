@@ -1,46 +1,50 @@
-## Imports
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const dotenv = require('dotenv');
+const path = require('path');
+const fs = require('fs');
+const { keepAlive } = require('./keepAlive');
 
-import discord
-import dotenv
-import os
-import asyncio
-from discord.ext import commands
-from server import keep_alive
-from pathlib import Path
+// loading .env
+dotenv.config({ path: path.join(__dirname, 'cfg/.env') });
 
-## Bot Settings
+// Intents (équivalent à discord.Intents.default() + members + message_content)
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+});
 
-description = """your_bot_description_here"""
+// store commands
+client.commands = new Collection();
 
-# Intents are required for certain features, you can adjust them as needed.
-intents = discord.Intents.default()
+// Chargement des cogs (commandes)
+async function loadCogs() {
+  const cogsPath = path.join(__dirname, 'cogs');
+  const cogFiles = fs.readdirSync(cogsPath).filter(f => f.endsWith('.js'));
 
-# Basic bot intents, necessary for bot's functionality
-intents.members = True
-intents.message_content = True
+  for (const file of cogFiles) {
+    const cog = require(path.join(cogsPath, file));
+    // Chaque cog exporte { name, execute } ou un objet de commandes
+    if (cog.name) {
+      client.commands.set(cog.name, cog);
+    }
+  }
+}
 
-## Startup
+// Event on_ready
+client.once('ready', () => {
+  console.log(`Logged in as ${client.user.tag} (ID: ${client.user.id})`);
+  console.log('Bot Launched!');
+});
 
-# .env should contain the bot token as DISCORD_TOKEN
-# loads env variable for local hosting, on Render these are set in the dashboard and accessed as env variables as well
-dotenv.load_dotenv(Path(__file__).parent / 'cfg/.env', verbose=True)
+// Launch
+async function main() {
+  await loadCogs();
+  keepAlive();
+  await client.login(process.env.DISCORD_TOKEN);
+}
 
-bot = commands.Bot(command_prefix='your_prefix', description=description, intents=intents)
-
-# to add a cog, use bot.load_extension('cogs.your_cog_name') in the main() function below.
-async def main():
-    async with bot:
-        # Load your cogs here
-        await bot.load_extension('cogs.example')  # Example cog
-        # bot startup, must be the last line of main()
-        await bot.start(os.getenv('DISCORD_TOKEN'))
-
-@bot.event
-async def on_ready():
-    assert bot.user is not None
-    # startup message, can be customized or removed
-    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
-    print('Bot Launched!')
-    
-keep_alive()
-asyncio.run(main())
+main();
