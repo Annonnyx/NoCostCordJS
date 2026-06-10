@@ -32,7 +32,7 @@ async def main():
     async with bot:
         # Load your cogs here
         await bot.load_extension('cogs.example')  # Example cog
-
+        print('loaded: example cog')
         # bot startup, must be the last line of main()
         await bot.start(os.getenv('DISCORD_TOKEN'))
 
