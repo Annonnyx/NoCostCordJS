@@ -143,6 +143,30 @@ Render's free tier spins down after inactivity. To prevent this:
 3. Set the URL to your Render service URL
 4. Set the interval to **5 minutes**
 
+## 🔧 Troubleshooting
+
+**Bot isn't responding to commands**
+- Make sure `intents.message_content` is set to `True` in `main.py`
+- Verify your bot has the correct permissions in your Discord server
+- Check that your command prefix matches what you set in `main.py`
+
+**Environment variables returning `None`**
+- Make sure your `.env` file is in the `cfg/` folder when running locally
+- Check that the file was saved with UTF-8 encoding and no BOM — use VS Code or create it via Python rather than Notepad
+- On Render, make sure variables are set in the **Environment** tab of your service
+
+**Bot goes offline after a few minutes**
+- Make sure UptimeRobot is set up and pinging your Render URL every 5 minutes
+- Verify your Render service is a **Web Service** and not a background worker
+
+**Render deployment failing**
+- Check that `requirements.txt` includes all your dependencies
+- Make sure `render.yaml` is in the root of your repository
+
+**Supabase returning `None` or connection errors**
+- Verify `SUPABASE_URL` doesn't include `/rest/v1/` at the end — it should be just `https://your-project.supabase.co`
+- Make sure `SUPABASE_KEY` is the `anon public` key, not the `service_role` key
+
 ---
 
 ## 📄 License
