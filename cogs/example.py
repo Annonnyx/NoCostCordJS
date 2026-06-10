@@ -1,25 +1,16 @@
-from discord.ext import commands
-import discord
+// Exemple
+const { Events } = require('discord.js');
 
-class Example(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        print('loaded: Example')
+module.exports = {
+  name: 'example',
 
-    @commands.command()
-    async def ping(self, ctx):
-        """Returns the bot's latency."""
-        embed = discord.Embed(
-            title='🏓 Pong!',
-            description=f'Latency: {round(self.bot.latency * 1000)}ms',
-            color=discord.Color.green()
-        )
-        await ctx.send(embed=embed)
+  register(client) {
+    client.on(Events.MessageCreate, async (message) => {
+      if (message.author.bot) return;
 
-    @commands.command()
-    async def hello(self, ctx):
-        """Greets the user."""
-        await ctx.send(f'Hello, {ctx.author.name}!')
-
-async def setup(bot):
-    await bot.add_cog(Example(bot))
+      if (message.content === '&ping') {
+        await message.reply('Pong!');
+      }
+    });
+  },
+};
