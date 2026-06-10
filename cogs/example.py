@@ -4,7 +4,7 @@ import discord
 class Example(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        print('Loaded: Example')
+        print('loaded: Example')
 
     @commands.command()
     async def ping(self, ctx):
