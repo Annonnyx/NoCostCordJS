@@ -1,20 +1,22 @@
 # NoCostCord
 
-A Discord bot framework built on python allowing you to host your own bot for 0$... without billing information!
+A Discord bot framework built on **Node.js** allowing you to host your own bot for 0$... without billing information!
 
-Tired of spending hours searching for a free VPS, setting up a database, and keeping your bot alive? NoCostCord bundles everything together — hosting, persistent storage, and 24/7 uptime — all using free services. A Discord bot framework built on python, with a clean Cog-based architecture. Just clone, configure, and deploy.
+Tired of spending hours searching for a free VPS, setting up a database, and keeping your bot alive? NoCostCord bundles everything together — hosting, persistent storage, and 24/7 uptime — all using free services. A Discord bot framework built on **discord.js**, with a clean module-based architecture. Just clone, configure, and deploy.
 
 >! This framework is specifically coded for the services allowing you to deploy your bot for free therefore using it with different hosting services wont work !
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![Discord.py](https://img.shields.io/badge/Discord.py-2.0+-blue)
+![Node.js](https://img.shields.io/badge/Node.js-18+-green)
+![discord.js](https://img.shields.io/badge/discord.js-14.0+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Cost](https://img.shields.io/badge/Cost-Free-brightgreen)
 ![Type](https://img.shields.io/badge/Type-Framework-orange)
 ![Stars](https://img.shields.io/github/stars/ateronCS2/NoCostCord?style=social)
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/a612011b-7b2a-46fe-9859-b2f669fc5632" width="600">
 </p>
+
 ---
 
 ## 📦 Stack
@@ -24,7 +26,7 @@ Tired of spending hours searching for a free VPS, setting up a database, and kee
 | [Render](https://render.com) | Hosting | Free |
 | [UptimeRobot](https://uptimerobot.com) | Keep-alive pinging | Free |
 | [Supabase](https://supabase.com) | Persistent database | Free |
-| [Discord.py](https://discordpy.readthedocs.io) | Bot framework | Free |
+| [discord.js](https://discord.js.org) | Bot framework | Free |
 
 ---
 
@@ -32,23 +34,25 @@ Tired of spending hours searching for a free VPS, setting up a database, and kee
 
 ```
 NoCostCord/
-├── main.py           # Bot entry point
-├── server.py         # Flask keep-alive server
-├── requirements.txt  # Python dependencies
-├── render.yaml       # Render deployment configuration
+├── index.js              # Bot entry point
+├── keepAlive.js          # HTTP keep-alive server
+├── package.json          # Node.js dependencies
+├── render.yaml           # Render deployment configuration
 ├── cogs/
-│   ├── __init__.py
-│   └── example.py    # Example cog
-├── utils/
-│   └── database.py   # Supabase integration
+│   └── example.js        # Example module
+├── lib/
+│   ├── db.js             # Database initialization
+│   ├── loader.js         # Command loader
+│   └── messageHandler.js # Message handling
 └── cfg/
+    └── .env              # Environment variables
 ```
 
 ---
 
 ## ⚙️ Prerequisites
 
-- Python 3.10+
+- Node.js 18+
 - A [Discord bot token](https://discord.com/developers/applications)
 - A [Render](https://render.com) account
 - A [Supabase](https://supabase.com) account *(optional, only if you need persistent storage)*
@@ -84,7 +88,7 @@ git push -u origin main
 
 ### 3. Install dependencies
 ```bash
-pip install -r requirements.txt
+npm install
 ```
 
 ### 4. Configure environment variables to run locally
@@ -97,35 +101,32 @@ SUPABASE_KEY=your_supabase_key_here      # optional
 
 ### 5. Run locally, for testing
 ```bash
-python main.py
+node index.js
 ```
 
 ---
 
-## 🧩 Adding Cogs
+## 🧩 Adding Cogs (Modules)
 
 Create a new file in the `cogs/` folder:
 
-```python
-from discord.ext import commands
+```js
+import { Events } from 'discord.js';
 
-class MyCog(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        print('Loaded: MyCog')
+export const name = 'myCog';
 
-    @commands.command()
-    async def hello(self, ctx):
-        await ctx.send('Hello!')
+export function register(client) {
+  client.on(Events.MessageCreate, async (message) => {
+    if (message.author.bot) return;
 
-async def setup(bot):
-    await bot.add_cog(MyCog(bot))
+    if (message.content === `${client.getPrefix(message.guildId)}hello`) {
+      await message.reply('Hello!');
+    }
+  });
+}
 ```
 
-Then load it in `main.py`:
-```python
-await bot.load_extension('cogs.my_cog')
-```
+Then load it in `index.js` — it will be picked up automatically by the `loadCommands` loader if placed in the `cogs/` folder.
 
 ---
 
@@ -134,11 +135,13 @@ await bot.load_extension('cogs.my_cog')
 1. Push your code to GitHub
 2. Go to [Render](https://render.com) and create a **Web Service**
 3. Connect your GitHub repository — build and start commands are automatically configured via `render.yaml`. If Render still asks for them manually, use:
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `python main.py`
+   - **Build Command**: `npm install`
+   - **Start Command**: `node index.js`
 4. Add your environment variables under **Environment**
 5. Click **Deploy**
-   
+
+---
+
 ## ⏰ Keeping Your Bot Alive
 
 Render's free tier spins down after inactivity. To prevent this:
@@ -154,28 +157,32 @@ Render's free tier spins down after inactivity. To prevent this:
 
 ## 🗄️ Using Supabase
 
-Import the database utility in any cog:
+Import the database utility in any module:
 
-```python
-from utils.database import get_supabase
+```js
+import { createClient } from '@supabase/supabase-js';
 
-# Fetch data
-result = get_supabase().table('your_table').select('*').execute()
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-# Insert data
-get_supabase().table('your_table').insert({'key': 'value'}).execute()
+// Fetch data
+const { data } = await supabase.from('your_table').select('*');
+
+// Insert data
+await supabase.from('your_table').insert({ key: 'value' });
 ```
+
+---
 
 ## 🔧 Troubleshooting
 
 **Bot isn't responding to commands**
-- Make sure `intents.message_content` is set to `True` in `main.py`
+- Make sure `GatewayIntentBits.MessageContent` is included in your client intents in `index.js`
 - Verify your bot has the correct permissions in your Discord server
-- Check that your command prefix matches what you set in `main.py`
+- Check that your command prefix matches what is set in your database or default config
 
-**Environment variables returning `None`**
+**Environment variables returning `undefined`**
 - Make sure your `.env` file is in the `cfg/` folder when running locally
-- Check that the file was saved with UTF-8 encoding and no BOM — use VS Code or create it via Python rather than Notepad
+- Check that the file was saved with UTF-8 encoding and no BOM — use VS Code or create it via terminal rather than Notepad
 - On Render, make sure variables are set in the **Environment** tab of your service
 
 **Bot goes offline after a few minutes**
@@ -183,10 +190,11 @@ get_supabase().table('your_table').insert({'key': 'value'}).execute()
 - Verify your Render service is a **Web Service** and not a background worker
 
 **Render deployment failing**
-- Check that `requirements.txt` includes all your dependencies
-- Make sure `render.yaml` is in the root of your repository
+- Check that `package.json` is at the **root** of your repository
+- Make sure `"type": "module"` is set in `package.json` if you use ESM `import/export` syntax
+- Verify `render.yaml` is in the root of your repository
 
-**Supabase returning `None` or connection errors**
+**Supabase returning `null` or connection errors**
 - Verify `SUPABASE_URL` doesn't include `/rest/v1/` at the end — it should be just `https://your-project.supabase.co`
 - Make sure `SUPABASE_KEY` is the `anon public` key, not the `service_role` key
 
