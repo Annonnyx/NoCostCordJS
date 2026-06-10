@@ -7,7 +7,7 @@ const { keepAlive } = require('./keepAlive');
 // loading .env
 dotenv.config({ path: path.join(__dirname, 'cfg/.env') });
 
-// Intents (équivalent à discord.Intents.default() + members + message_content)
+// Intents (discord.Intents.default() + members + message_content)
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -20,14 +20,13 @@ const client = new Client({
 // store commands
 client.commands = new Collection();
 
-// Chargement des cogs (commandes)
+// loadinf cogs (commands)
 async function loadCogs() {
   const cogsPath = path.join(__dirname, 'cogs');
   const cogFiles = fs.readdirSync(cogsPath).filter(f => f.endsWith('.js'));
 
   for (const file of cogFiles) {
     const cog = require(path.join(cogsPath, file));
-    // Chaque cog exporte { name, execute } ou un objet de commandes
     if (cog.name) {
       client.commands.set(cog.name, cog);
     }
