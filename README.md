@@ -67,10 +67,12 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configure environment variables to run locally
-Create a `cfg/.env` file:
+Add to `cfg/.env`:
+```
 DISCORD_TOKEN=your_bot_token_here
 SUPABASE_URL=your_supabase_url_here      # optional
 SUPABASE_KEY=your_supabase_key_here      # optional
+```
 
 ### 5. Run locally, for testing
 ```bash
