@@ -1,21 +1,33 @@
-from flask import Flask
-from threading import Thread
-import logging
+const http = require('http');
+const { execSync } = require('child_process');
 
-app = Flask(__name__)
+const PORT = 8080;
 
-@app.route('/')
-def home():
-    # startup message for the web server, can be customized or removed
-    return 'Bot is running!'
+function createServer() {
+  const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.end('Bot is running!');
+    } else {
+      res.writeHead(404);
+      res.end();
+    }
+  });
 
-def run():
-    app.run(host='0.0.0.0', port=8080)
+  return server;
+}
 
-def keep_alive():
-    t = Thread(target=run)
-    t.start()
+function keepAlive() {
+  const server = createServer();
 
-# Suppress Flask and Werkzeug logging to avoid cluttering the console
-logging.getLogger('werkzeug').setLevel(logging.ERROR)
-logging.getLogger('flask.app').setLevel(logging.ERROR)
+  server.listen(PORT, '0.0.0.0', () => {
+    // Silently starts — no console clutter
+  });
+
+  // Suppress server errors silently (equivalent to suppressing Werkzeug logs)
+  server.on('error', () => {});
+
+  return server;
+}
+
+module.exports = { keepAlive };
