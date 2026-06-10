@@ -37,7 +37,6 @@ NoCostCord/
 ├── utils/
 │   └── database.py   # Supabase integration
 └── cfg/
-└── .env          # Local environment variables
 ```
 
 ---
@@ -69,7 +68,7 @@ pip install -r requirements.txt
 ```
 
 ### 4. Configure environment variables to run locally
-Add to `cfg/.env`:
+Create and add to `cfg/.env`:
 ```
 DISCORD_TOKEN=your_bot_token_here
 SUPABASE_URL=your_supabase_url_here      # optional
