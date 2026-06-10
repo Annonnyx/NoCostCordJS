@@ -148,3 +148,5 @@ MIT License — see [LICENSE](LICENSE) for details. Credit is required when usin
 ## 🙏 Credits
 
 Created by [ateronCS2](https://github.com/ateronCS2)
+
+(yes this README was partly made by AI, the code wasnt!)
