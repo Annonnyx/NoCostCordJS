@@ -124,6 +124,27 @@ await bot.load_extension('cogs.my_cog')
 
 ---
 
+## ☁️ Deploying on Render
+
+1. Push your code to GitHub
+2. Go to [Render](https://render.com) and create a **Web Service**
+3. Connect your GitHub repository — build and start commands are automatically configured via `render.yaml`. If Render still asks for them manually, use:
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `python main.py`
+4. Add your environment variables under **Environment**
+5. Click **Deploy**
+   
+## ⏰ Keeping Your Bot Alive
+
+Render's free tier spins down after inactivity. To prevent this:
+
+1. Go to [UptimeRobot](https://uptimerobot.com) and create a free account
+2. Add a new **HTTP(s)** monitor
+3. Set the URL to your Render service URL
+4. Set the interval to **5 minutes**
+
+---
+
 ## 🗄️ Using Supabase
 
 Import the database utility in any cog:
@@ -137,25 +158,6 @@ result = get_supabase().table('your_table').select('*').execute()
 # Insert data
 get_supabase().table('your_table').insert({'key': 'value'}).execute()
 ```
-
----
-
-## ☁️ Deploying on Render
-
-1. Push your code to GitHub
-2. Go to [Render](https://render.com) and create a **Web Service**
-3. Connect your GitHub repository — build and start commands are automatically configured via `render.yaml`
-4. Add your environment variables under **Environment**
-5. Click **Deploy**
-   
-## ⏰ Keeping Your Bot Alive
-
-Render's free tier spins down after inactivity. To prevent this:
-
-1. Go to [UptimeRobot](https://uptimerobot.com) and create a free account
-2. Add a new **HTTP(s)** monitor
-3. Set the URL to your Render service URL
-4. Set the interval to **5 minutes**
 
 ## 🔧 Troubleshooting
 
