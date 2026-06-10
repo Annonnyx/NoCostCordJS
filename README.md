@@ -13,7 +13,7 @@ Tired of spending hours searching for a free VPS, setting up a database, and kee
 ![Type](https://img.shields.io/badge/Type-Framework-orange)
 ![Stars](https://img.shields.io/github/stars/ateronCS2/NoCostCord?style=social)
 <p align="center">
-  <img src="[your-image-url](https://github.com/user-attachments/assets/a612011b-7b2a-46fe-9859-b2f669fc5632)" width="600">
+  <img src="https://github.com/user-attachments/assets/a612011b-7b2a-46fe-9859-b2f669fc5632" width="600">
 </p>
 ---
 
