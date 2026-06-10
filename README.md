@@ -60,7 +60,22 @@ cd NoCostCord
 ```
 
 ### 2. Create your own repository
-Fork this repository on GitHub or create a new one and push the cloned files to it. Render requires a GitHub repository to deploy from.
+
+**Option A — Fork (recommended):**
+Click the **Fork** button on the GitHub repository page to create your own copy instantly.
+
+**Option B — Clone and push to a new repo:**
+1. Create a new repository on GitHub
+2. Clone NoCostCord locally:
+```bash
+git clone https://github.com/ateronCS2/NoCostCord.git
+cd NoCostCord
+```
+3. Point it to your new repo:
+```bash
+git remote set-url origin https://github.com/yourusername/your-repo-name.git
+git push -u origin main
+```
 
 ### 3. Install dependencies
 ```bash
