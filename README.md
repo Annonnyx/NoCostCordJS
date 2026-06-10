@@ -7,6 +7,8 @@ A Discord bot framework built on python allowing you to host your own bot for 0$
 ![Discord.py](https://img.shields.io/badge/Discord.py-2.0+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Cost](https://img.shields.io/badge/Cost-Free-brightgreen)
+![Type](https://img.shields.io/badge/Type-Framework-orange)
+![Stars](https://img.shields.io/github/stars/ateronCS2/NoCostCord?style=social)
 
 ---
 
