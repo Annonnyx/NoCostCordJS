@@ -1,10 +1,10 @@
 # NoCostCord
 
-A Discord bot framework built on python allowing you to host your own bot for 0$... without billing information!!!. Includes a clean Cog-based architecture, persistent storage via Supabase, and deployment using Render's free web service tier. Just clone, configure, and deploy.
+A Discord bot framework built on python allowing you to host your own bot for 0$... without billing information!
 
-> Tired of spending hours searching for a free VPS, setting up a database, and keeping your bot alive? NoCostCord bundles everything together — hosting, persistent storage, and 24/7 uptime — all using free services. A Discord bot framework built on python, with a clean Cog-based architecture. Just clone, configure, and deploy.
+Tired of spending hours searching for a free VPS, setting up a database, and keeping your bot alive? NoCostCord bundles everything together — hosting, persistent storage, and 24/7 uptime — all using free services. A Discord bot framework built on python, with a clean Cog-based architecture. Just clone, configure, and deploy.
 
-! This framework is specifically coded for the services allowing you to deploy your bot for free therefore using it with different hosting services wont work !
+>! This framework is specifically coded for the services allowing you to deploy your bot for free therefore using it with different hosting services wont work !
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![Discord.py](https://img.shields.io/badge/Discord.py-2.0+-blue)
