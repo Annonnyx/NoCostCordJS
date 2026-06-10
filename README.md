@@ -1,12 +1,14 @@
 # NoCostCord
 A Discord bot framework built on python allowing you to host your own bot for 0$... without billing information!!!. Includes a clean Cog-based architecture, persistent storage via Supabase, and deployment using Render's free web service tier. Just clone, configure, and deploy.
 
-! This framework is specifically coded for the services allowing you to deploy your bot for free !
+! This framework is specifically coded for the services allowing you to deploy your bot for free therefore using it with different hosting services wont work !
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![Discord.py](https://img.shields.io/badge/Discord.py-2.0+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Cost](https://img.shields.io/badge/Cost-Free-brightgreen)
+![Type](https://img.shields.io/badge/Type-Framework-orange)
+![Stars](https://img.shields.io/github/stars/ateronCS2/NoCostCord?style=social)
 
 ---
 
@@ -140,6 +142,30 @@ Render's free tier spins down after inactivity. To prevent this:
 2. Add a new **HTTP(s)** monitor
 3. Set the URL to your Render service URL
 4. Set the interval to **5 minutes**
+
+## 🔧 Troubleshooting
+
+**Bot isn't responding to commands**
+- Make sure `intents.message_content` is set to `True` in `main.py`
+- Verify your bot has the correct permissions in your Discord server
+- Check that your command prefix matches what you set in `main.py`
+
+**Environment variables returning `None`**
+- Make sure your `.env` file is in the `cfg/` folder when running locally
+- Check that the file was saved with UTF-8 encoding and no BOM — use VS Code or create it via Python rather than Notepad
+- On Render, make sure variables are set in the **Environment** tab of your service
+
+**Bot goes offline after a few minutes**
+- Make sure UptimeRobot is set up and pinging your Render URL every 5 minutes
+- Verify your Render service is a **Web Service** and not a background worker
+
+**Render deployment failing**
+- Check that `requirements.txt` includes all your dependencies
+- Make sure `render.yaml` is in the root of your repository
+
+**Supabase returning `None` or connection errors**
+- Verify `SUPABASE_URL` doesn't include `/rest/v1/` at the end — it should be just `https://your-project.supabase.co`
+- Make sure `SUPABASE_KEY` is the `anon public` key, not the `service_role` key
 
 ---
 
