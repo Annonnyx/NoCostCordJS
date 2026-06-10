@@ -148,6 +148,8 @@ Render's free tier spins down after inactivity. To prevent this:
 3. Set the URL to your Render service URL
 4. Set the interval to **5 minutes**
 
+**After that your bot will run 24/7 no upkeep needed, you can enable/disable auto deploy on render and it will automatically deploy the latest commit to your repo**
+
 ---
 
 ## 🗄️ Using Supabase
