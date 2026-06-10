@@ -23,6 +23,7 @@ A Discord bot framework built on python allowing you to host your own bot for 0$
 
 ## 📁 File Structure
 
+```
 NoCostCord/
 ├── main.py           # Bot entry point
 ├── server.py         # Flask keep-alive server
@@ -35,6 +36,7 @@ NoCostCord/
 │   └── database.py   # Supabase integration
 └── cfg/
 └── .env          # Local environment variables
+```
 
 ---
 
