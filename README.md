@@ -12,7 +12,7 @@ Tired of spending hours searching for a free VPS, setting up a database, and kee
 ![Cost](https://img.shields.io/badge/Cost-Free-brightgreen)
 ![Type](https://img.shields.io/badge/Type-Framework-orange)
 ![Stars](https://img.shields.io/github/stars/ateronCS2/NoCostCord?style=social)
-![Demo](https://github.com/user-attachments/assets/14f5975f-578b-474c-9676-9ea310d8951c)
+![Demo](https://github.com/user-attachments/assets/14f5975f-578b-474c-9676-9ea310d8951)
 ---
 
 ## 📦 Stack
