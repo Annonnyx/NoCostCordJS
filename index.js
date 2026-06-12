@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const { keepAlive } = require('./keepAlive');
 
-// loading .env
+// Loading .env
 dotenv.config({ path: path.join(__dirname, 'cfg/.env') });
 
 // Intents (discord.Intents.default() + members + message_content)
